@@ -87,15 +87,31 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  int clock_pin[12] = {
+	GPIO_PIN_4,
+  	GPIO_PIN_5,
+  	GPIO_PIN_6,
+  	GPIO_PIN_7,
+  	GPIO_PIN_8,
+  	GPIO_PIN_9,
+  	GPIO_PIN_10,
+  	GPIO_PIN_11,
+  	GPIO_PIN_12,
+  	GPIO_PIN_13,
+  	GPIO_PIN_14,
+	GPIO_PIN_15
+  };
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  HAL_Delay(1000);
-	  clearAllClock();
+	  for(int i=0; i<12; ++i){
+		  HAL_GPIO_WritePin(GPIOA, clock_pin[i], RESET);
+		  HAL_Delay(1000);
+		  HAL_GPIO_WritePin(GPIOA, clock_pin[i], SET);
+	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -153,7 +169,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, C0_Pin|C1_Pin|C2_Pin|C3_Pin
                           |C4_Pin|C5_Pin|C6_Pin|C7_Pin
-                          |C8_Pin|C9_Pin|C10_Pin|C11_Pin, GPIO_PIN_RESET);
+                          |C8_Pin|C9_Pin|C10_Pin|C11_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pins : C0_Pin C1_Pin C2_Pin C3_Pin
                            C4_Pin C5_Pin C6_Pin C7_Pin
