@@ -94,7 +94,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  display7SEG(traffic+1);
+	  displayNum(traffic+1);
 	  switch(state){
 	  case 0:
 		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, RESET);

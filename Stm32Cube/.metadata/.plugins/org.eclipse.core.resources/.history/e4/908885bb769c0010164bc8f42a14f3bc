@@ -87,73 +87,15 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  int state = 0, counter = 4, traffic = 6;
+  int counter = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  display7SEG(traffic+1);
-	  switch(state){
-	  case 0:
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, RESET);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, SET);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, SET);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, SET);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, SET);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, RESET);
-		  if(counter <= 0){
-			  state = 1;
-			  counter = 2;
-		  }
-		  break;
-
-	  case 1:
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, RESET);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, SET);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, SET);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, SET);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, RESET);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, SET);
-		  if(counter <= 0){
-			  state = 2;
-			  counter = 3;
-			  traffic = 3;
-		  }
-		  break;
-
-	  case 2:
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, SET);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, SET);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, RESET);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, RESET);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, SET);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, SET);
-		  if(counter <= 0){
-			  state = 3;
-			  counter = 2;
-			  traffic = 2;
-		  }
-		  break;
-
-	  case 3:
-	  	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, SET);
-	  	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, RESET);
-	  	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, SET);
-	  	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, RESET);
-	  	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, SET);
-	  	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, SET);
-	  	  if(counter <= 0){
-	  		  state = 0;
-	  		  counter = 5;
-	  		  traffic = 7;
-	  	  }
-	  	  break;
-	  }
-	  counter--;
-	  traffic--;
-
+	  if(counter >= 10) counter = 0;
+	  display7SEG(counter++);
 	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
