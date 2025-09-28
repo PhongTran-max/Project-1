@@ -87,35 +87,18 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  int hour=2, minute=30,second=0;
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
-	  clearAllClock();
-	  int h_idx = hour % 12;
-	  int m_idx = (minute/5) % 12;
-	  int s_idx = (second/5) % 12;
-
-	  setNumberOnClock(h_idx);
-	  setNumberOnClock(m_idx);
-	  setNumberOnClock(s_idx);
-
 	  HAL_Delay(1000);
-
-	  second++;
-	  if(second >= 60){
-		  second=0;
-		  minute++;
-		  if(minute >= 60){
-			  minute=0;
-			  hour++;
-			  if(hour >= 24) hour = 0;
-		  }
-	  }
+	  clearAllClock();
+	  setNumberOnClock(6);
+	  setNumberOnClock(4);
+	  clearNumberOnClock(6);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

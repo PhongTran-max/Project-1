@@ -107,15 +107,11 @@ int main(void)
 	  HAL_Delay(1000);
 
 	  second++;
-	  if(second >= 60){
-		  second=0;
-		  minute++;
-		  if(minute >= 60){
-			  minute=0;
-			  hour++;
-			  if(hour >= 24) hour = 0;
-		  }
-	  }
+	  second %= 60;
+	  if(second == 0) minute++;
+	  minute %= 60;
+	  if(minute == 0) hour++;
+	  hour %= 24;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
