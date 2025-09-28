@@ -1,0 +1,37 @@
+/*
+ * display7seg.c
+ *
+ *  Created on: Sep 28, 2025
+ *      Author: NCPC
+ */
+
+#include "display7seg.h"
+uint8_t seg_code[10] = {
+	0b1000000,
+	0b1111001,
+	0b0100100,
+	0b0110000,
+	0b0011001,
+	0b0010010,
+	0b0000010,
+	0b1111000,
+	0b0000000,
+	0b0010000
+};
+int seg_pin[7] = {
+	GPIO_PIN_0,
+	GPIO_PIN_1,
+	GPIO_PIN_2,
+	GPIO_PIN_3,
+	GPIO_PIN_4,
+	GPIO_PIN_5,
+	GPIO_PIN_6
+  };
+
+  void display7SEG(int num){
+	  uint8_t pattern = seg_code[num];
+	  for(int i=0; i<7; ++i){
+		  GPIO_PinState state = (pattern >> i) & 0x01? GPIO_PIN_SET : GPIO_PIN_RESET;
+		  HAL_GPIO_WritePin(GPIOB, seg_pin[i], state);
+	  }
+  }
