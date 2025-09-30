@@ -87,7 +87,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  int hour=2, minute=30,second=0;
+  int hour=2, minute=59,second=55;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -108,14 +108,14 @@ int main(void)
 
 	  second++;
 	  if(second >= 60){
-		  second=0;
+		  second = 0;
 		  minute++;
-		  if(minute >= 60){
-			  minute=0;
-			  hour++;
-			  if(hour >= 24) hour = 0;
-		  }
 	  }
+	  if(minute >= 60){
+		  minute = 0;
+		  hour++;
+	  }
+	  if(hour >=24) hour = 0;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

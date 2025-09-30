@@ -37,11 +37,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  00015762  00000000  00000000  00024a68  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00004c0a  00000000  00000000  0003a1ca  2**0
+ 17 .debug_line   00004c0c  00000000  00000000  0003a1ca  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00079a42  00000000  00000000  0003edd4  2**0
+ 18 .debug_str    00079a42  00000000  00000000  0003edd6  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000b8816  2**0
+ 19 .comment      00000053  00000000  00000000  000b8818  2**0
                   CONTENTS, READONLY
  20 .debug_frame  00000dac  00000000  00000000  000b886c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -180,12 +180,12 @@ int main(void)
   MX_GPIO_Init();
  80001d6:	f000 f8a1 	bl	800031c <MX_GPIO_Init>
   /* USER CODE BEGIN 2 */
-  int hour=2, minute=30,second=0;
+  int hour=2, minute=59,second=55;
  80001da:	2302      	movs	r3, #2
  80001dc:	617b      	str	r3, [r7, #20]
- 80001de:	231e      	movs	r3, #30
+ 80001de:	233b      	movs	r3, #59	; 0x3b
  80001e0:	613b      	str	r3, [r7, #16]
- 80001e2:	2300      	movs	r3, #0
+ 80001e2:	2337      	movs	r3, #55	; 0x37
  80001e4:	60fb      	str	r3, [r7, #12]
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -265,26 +265,28 @@ int main(void)
 	  if(second >= 60){
  8000270:	68fb      	ldr	r3, [r7, #12]
  8000272:	2b3b      	cmp	r3, #59	; 0x3b
- 8000274:	ddb7      	ble.n	80001e6 <main+0x1e>
-		  second=0;
+ 8000274:	dd04      	ble.n	8000280 <main+0xb8>
+		  second = 0;
  8000276:	2300      	movs	r3, #0
  8000278:	60fb      	str	r3, [r7, #12]
 		  minute++;
  800027a:	693b      	ldr	r3, [r7, #16]
  800027c:	3301      	adds	r3, #1
  800027e:	613b      	str	r3, [r7, #16]
-		  if(minute >= 60){
+	  }
+	  if(minute >= 60){
  8000280:	693b      	ldr	r3, [r7, #16]
  8000282:	2b3b      	cmp	r3, #59	; 0x3b
- 8000284:	ddaf      	ble.n	80001e6 <main+0x1e>
-			  minute=0;
+ 8000284:	dd04      	ble.n	8000290 <main+0xc8>
+		  minute = 0;
  8000286:	2300      	movs	r3, #0
  8000288:	613b      	str	r3, [r7, #16]
-			  hour++;
+		  hour++;
  800028a:	697b      	ldr	r3, [r7, #20]
  800028c:	3301      	adds	r3, #1
  800028e:	617b      	str	r3, [r7, #20]
-			  if(hour >= 24) hour = 0;
+	  }
+	  if(hour >=24) hour = 0;
  8000290:	697b      	ldr	r3, [r7, #20]
  8000292:	2b17      	cmp	r3, #23
  8000294:	dda7      	ble.n	80001e6 <main+0x1e>
